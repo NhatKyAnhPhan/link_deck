@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f2f2ed">
+  <title>scrcpy // LINK DECK</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="scrcpy Link Deck">
+        <span class="brand-mark">s<span>.</span></span>
+        <span class="brand-copy"><strong>scrcpy</strong><small>LINK DECK</small></span>
+      </a>
+      <div class="topbar-right">
+        <span class="version-label">ANDROID CONTROL</span>
+        <span class="connection-state" id="adb-state"><i></i><span>Đang kiểm tra ADB</span></span>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="intro-row">
+        <div>
+          <p class="eyebrow">BẢNG ĐIỀU KHIỂN / 01</p>
+          <h1>Thiết bị <span>của bạn.</span></h1>
+        </div>
+        <button class="button button-quiet" id="refresh-devices" type="button" title="Quét lại thiết bị">
+          <span class="refresh-icon" aria-hidden="true">↻</span> Quét thiết bị
+        </button>
+      </section>
+
+      <div class="main-grid">
+        <section class="device-panel" aria-labelledby="device-heading">
+          <div class="section-heading">
+            <div>
+              <span class="section-index">01</span>
+              <h2 id="device-heading">Thiết bị kết nối</h2>
+            </div>
+            <span class="count-label" id="device-count">0 THIẾT BỊ</span>
+          </div>
+          <div class="device-list" id="device-list" aria-live="polite">
+            <div class="empty-state" id="device-empty">
+              <span class="empty-mark">—</span>
+              <strong>Chưa có thiết bị</strong>
+              <p>Kết nối Android qua USB và bật USB debugging, hoặc kết nối ADB qua Wi-Fi.</p>
+            </div>
+          </div>
+          <div class="device-footer">
+            <span class="tiny-led"></span>
+            <span id="device-footnote">Đang chờ kết nối</span>
+          </div>
+        </section>
+
+        <section class="session-panel" aria-labelledby="session-heading">
+          <div class="section-heading">
+            <div>
+              <span class="section-index">02</span>
+              <h2 id="session-heading">Cấu hình phiên</h2>
+            </div>
+            <span class="session-badge" id="session-badge">SẴN SÀNG</span>
+          </div>
+
+          <div class="selected-device" id="selected-device">
+            <span class="selected-device-icon" aria-hidden="true">A</span>
+            <span class="selected-device-copy"><small>THIẾT BỊ ĐANG CHỌN</small><strong id="selected-model">Chưa chọn thiết bị</strong><code id="selected-serial">—</code></span>
+            <span class="selection-dot"></span>
+          </div>
+
+          <label class="field-label" for="max-size">Kích thước video tối đa <span>px</span></label>
+          <div class="size-control">
+            <input id="max-size" type="number" min="0" max="4096" step="10" value="1280" inputmode="numeric">
+            <div class="size-presets" aria-label="Chọn kích thước nhanh">
+              <button type="button" data-size="1920">FHD</button>
+              <button type="button" data-size="1280" class="active">HD</button>
+              <button type="button" data-size="720">720</button>
+              <button type="button" data-size="0">Gốc</button>
+            </div>
+          </div>
+          <p class="field-note">Để 0 nếu muốn dùng độ phân giải gốc của thiết bị.</p>
+
+          <label class="toggle-row" for="print-fps">
+            <span class="toggle-copy"><strong>Theo dõi FPS</strong><small>Đọc số khung hình từ log scrcpy</small></span>
+            <span class="switch"><input id="print-fps" type="checkbox" checked><span class="switch-track"></span></span>
+          </label>
+
+          <div class="fps-readout">
+            <span class="fps-number" id="fps-value">--</span>
+            <span class="fps-unit">FPS<br><small>HIỆN TẠI</small></span>
+            <span class="fps-divider"></span>
+            <span class="fps-session-label" id="fps-caption">Chưa có phiên hoạt động</span>
+            <span class="pulse-dot" id="fps-pulse"></span>
+          </div>
+
+          <div class="actions">
+            <button class="button button-primary" id="start-session" type="button" disabled>
+              <span aria-hidden="true">▶</span> Bắt đầu scrcpy
+            </button>
+            <button class="button button-stop" id="stop-session" type="button" disabled title="Dừng phiên scrcpy">■</button>
+          </div>
+          <p class="action-message" id="action-message" role="status"></p>
+        </section>
+      </div>
+
+      <section class="log-panel" aria-labelledby="log-heading">
+        <div class="log-header">
+          <div><span class="section-index">03</span><h2 id="log-heading">Nhật ký phiên</h2></div>
+          <span class="live-label"><i></i> LIVE</span>
+        </div>
+        <div class="log-output" id="log-output" aria-live="polite">
+          <p class="log-placeholder">Thông tin ADB và scrcpy sẽ xuất hiện tại đây.</p>
+        </div>
+      </section>
+
+      <footer class="settings-bar">
+        <span class="settings-title">ĐƯỜNG DẪN</span>
+        <span class="path-status" id="adb-path-label">ADB: đang tìm...</span>
+        <button class="path-button" id="choose-adb" type="button">Chọn adb.exe</button>
+        <span class="path-separator"></span>
+        <span class="path-status" id="scrcpy-path-label">scrcpy: chưa chọn</span>
+        <button class="path-button" id="choose-scrcpy" type="button">Chọn scrcpy.exe</button>
+      </footer>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+  <script src="./renderer.js"></script>
+</body>
+</html>
