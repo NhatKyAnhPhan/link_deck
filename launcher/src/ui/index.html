@@ -80,6 +80,19 @@
           </div>
           <p class="field-note">Để 0 nếu muốn dùng độ phân giải gốc của thiết bị.</p>
 
+          <label class="field-label" for="window-width">Kích thước cửa sổ scrcpy <span>px</span></label>
+          <div class="window-size-control">
+            <label class="dimension-field" for="window-width">
+              <span>Chiều rộng</span>
+              <input id="window-width" type="number" min="1" max="65535" step="1" placeholder="Tự động" inputmode="numeric">
+            </label>
+            <label class="dimension-field" for="window-height">
+              <span>Chiều cao</span>
+              <input id="window-height" type="number" min="1" max="65535" step="1" placeholder="Tự động" inputmode="numeric">
+            </label>
+          </div>
+          <p class="field-note">Để trống chiều nào để scrcpy tự chọn; có thể nhập một hoặc cả hai chiều.</p>
+
           <label class="toggle-row" for="print-fps">
             <span class="toggle-copy"><strong>Theo dõi FPS</strong><small>Đọc số khung hình từ log scrcpy</small></span>
             <span class="switch"><input id="print-fps" type="checkbox" checked><span class="switch-track"></span></span>

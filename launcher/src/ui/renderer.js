@@ -3,6 +3,7 @@ const state = { devices: [], selectedSerial: '', session: { status: 'idle', fps:
 const elements = Object.fromEntries([
   'adb-state', 'device-count', 'device-list', 'device-empty', 'device-footnote',
   'selected-model', 'selected-serial', 'selected-device', 'session-badge', 'max-size',
+  'window-width', 'window-height',
   'print-fps', 'fps-value', 'fps-caption', 'fps-pulse', 'start-session', 'stop-session',
   'action-message', 'log-output', 'adb-path-label', 'scrcpy-path-label', 'toast',
 ].map(id => [id, document.getElementById(id)]));
@@ -161,10 +162,22 @@ elements['start-session'].addEventListener('click', async () => {
     elements['action-message'].textContent = 'Kích thước phải là số nguyên từ 0 đến 4096.';
     return;
   }
+  const dimensions = {};
+  for (const [key, input] of [['windowWidth', elements['window-width']], ['windowHeight', elements['window-height']]]) {
+    if (!input.value) continue;
+    const dimension = Number(input.value);
+    if (!Number.isInteger(dimension) || dimension < 1 || dimension > 65535) {
+      elements['action-message'].textContent = 'Chiều rộng và chiều cao phải là số nguyên từ 1 đến 65535.';
+      input.focus();
+      return;
+    }
+    dimensions[key] = dimension;
+  }
   try {
     await api.startSession({
       serial: state.selectedSerial,
       maxSize,
+      ...dimensions,
       printFps: elements['print-fps'].checked,
     });
   } catch (error) {

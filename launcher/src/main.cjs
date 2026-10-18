@@ -177,6 +177,17 @@ ipcMain.handle('session:start', async (_event, options) => {
   const args = ['--serial', options.serial];
   const maxSize = Number(options.maxSize);
   if (Number.isInteger(maxSize) && maxSize > 0) args.push('--max-size', String(maxSize));
+  for (const [option, value] of [
+    ['--window-width', options.windowWidth],
+    ['--window-height', options.windowHeight],
+  ]) {
+    if (value == null || value === '') continue;
+    const dimension = Number(value);
+    if (!Number.isInteger(dimension) || dimension < 1 || dimension > 0xFFFF) {
+      throw new Error('Chiều rộng và chiều cao cửa sổ phải là số nguyên từ 1 đến 65535.');
+    }
+    args.push(option, String(dimension));
+  }
   if (options.printFps) args.push('--print-fps');
 
   const child = spawn(scrcpyPath, args, { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
