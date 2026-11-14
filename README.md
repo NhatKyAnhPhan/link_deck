@@ -1,8 +1,12 @@
-# scrcpy Link Deck
+# Link Deck
 
-**sLink Deck** là ứng dụng desktop giúp kết nối và điều khiển điện thoại Android từ máy tính thông qua scrcpy. Dự án sử dụng và cải tiến mã nguồn của [scrcpy](https://github.com/Genymobile/scrcpy), đồng thời bổ sung giao diện tiếng Việt để quản lý thiết bị và cấu hình phiên sử dụng thuận tiện hơn.
+**Link Deck** là ứng dụng desktop giúp kết nối và điều khiển điện thoại Android từ máy tính thông qua scrcpy. Dự án sử dụng và cải tiến mã nguồn của [scrcpy](https://github.com/Genymobile/scrcpy), đồng thời bổ sung giao diện tiếng Việt để quản lý thiết bị và cấu hình phiên sử dụng thuận tiện hơn. Ứng dụng có thể dùng với nhiều dòng điện thoại nội địa, miễn là thiết bị cho phép bật USB debugging, chấp nhận kết nối ADB và được máy tính nhận diện.
 
 > Đây là dự án không chính thức, không thuộc hoặc được bảo trợ bởi Genymobile hay nhóm phát triển scrcpy.
+
+## Ảnh minh họa
+
+![Giao diện Link Deck đang kết nối và điều khiển điện thoại Android](assets/link-deck-screenshot.png)
 
 ## Tính năng
 
